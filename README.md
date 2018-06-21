@@ -1,74 +1,198 @@
-# LinuxServer-configuration
-IP address: 13.126.182.198
-
-SSH port: 2200
-
-URL: http://13.126.182.198.xip.io/
+Udacity-Linux-Server-Configuration
 About
-This is the sixth project for the Udacity Full Stack Nanodegree. This project involves taking a baseline installation of Linux on a virtual machine and preparing it to host web applications. This includes installing updates, securing the server from attacks, and installing / configuring web and database servers.
+This is the Udacity project 5 about the Configuring the Linux the server.
 
-Set up remote machine
-Add a new user called grader: adduser grader
-Give the new user sudo privilege: usermod -aG sudo grader
-Update package index: apt-get update
-Upgrade the installed packages: apt-get upgrade
+Server Details
+Server IP Address 13.127.109.109
 
-Setup SSH keys for user grader
-In the local machine: ssh-keygen 
-SCP public key to the remote machine: scp -p 22 ~/.ssh/id_rsa.pub grader@<ip-address>:~/.ssh
-On server machine
- cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
- chmod 700 .ssh
- chmod 600 .ssh/authorized_keys
- rm .ssh/id_rsa.pub
+Hosted site Url http://13.127.109.109.xip.io/
 
- Disable root login and other security settings
-Open ssh config file: sudo nano /etc/ssh/sshd_config
-Chage ssh port to 2200
-Change PasswordAuthentication to no, changed PermitRootLogin to no and PrintLastLog to no
+How to connect as grader:
+save private key provided in your local machine and run the following command
 
-Change timezone to UTC
-Open the timezone selection dialog: sudo dpkg-reconfigure tzdata
-Then chose 'None of the above', then UTC.
-Setup the ntpd for regular time sync: sudo apt-get install ntp
-Choose closer NTP time servers and put in /etc/ntp.conf
+ssh -i path/to/privatekey -p 2200 grader@13.127.109.109
+  
+Configuring Linux Server
+Updating all packages
+sudo apt-get update
+sudo apt-get upgrade
+Creating grader User:
+sudo adduser grader
+This will add new user
 
-Install and configure Apache
-apache web server: sudo apt-get install apache2
-Install mod_wsgi for serving Python apps from Apache: sudo apt-get install python-setuptools libapache2-mod-wsgi
-Restart apache: sudo service apache2 restart
+sudo nano /etc/sudoers
+Below the Root user append the following line
 
-Set up remote machine for flask application
-Install additional packages to enable Apache to serve Flask applications: sudo apt-get install libapache2-mod-wsgi python-dev
-Create directory for the flask app: cd /var/www
-Create directory catalog
-Clone the movie catalog from git inside this directory and renamed the top subdirectory as catalog
-Install python-pip: sudo apt-get install python-pip
-Install virtualenv: sudo pip install virtualenv
-Set virtual environment to name 'venv': sudo virtualenv venv
-Create a virtual host config file : sudo nano /etc/apache2/sites-available/catalog.conf
-Edit the file as per project settings
-Enabled the host : sudo a2ensite catalog
-Create the .wsgi file catalog.wsgi as per project settings.
-Restarted apache: sudo service apache2 restart
+grader  ALL=(ALL:ALL) ALL
+This will grant sudo permission to grader
 
-Set up the virtual environment for testing project
-Activate virtual environment: source venv/bin/activate
-Install required packages like httplib2, requests, flask-seasurf, oauth2.client, sqlalchemy and python-psycopg2 inside the virtual environment
+Creating a ssh key pair for grader
+On your local machine in terminal/command prompt
 
-##Configure PostgreSQL
+ssh-keygen
+This will generate public and private ssh keys which is saved to .ssh folder
 
-Install PostgreSQL: sudo apt-get install postgresql postgresql-contrib
-Edit database_setup.py to and edit the create_engine line:
-python engine =create_engine('postgresql://catalog:<pwd>@localhost/catalog')
-Change the same line in project.py file
-Create catalog user for postgresql: sudo adduser catalog
-Change to default user postgres:sudo su - postgres
-Connect to the system and create user with LOGIN role and set a password: `CREATE USER catalog WITH PASSWORD '';
-Allow the user to create database tables: ALTER USER catalog CREATEDB;
-Create database: CREATE DATABASE catalog WITH OWNER catalog;
-Revoke all rights and grant only access to the catalog role
-Create database: python database_setup.py
+Then in your virtual machine change to newly created user
+
+su - grader
+Create a new directory .ssh and new file authorized_keys in that directory
+
+mkdir .ssh
+sudo nano .ssh/authorized_keys
+Copy the public key with .pub extension to authorized_keys and save the file
+
+chmod 700 .ssh
+chmod 644 .ssh/authorized_keys
+700 will give read write and execute permission to user.
+644 prevent other user from writting in to file. Then restart ssh server
+service ssh restart
+Now from your log in to grader with private key generated
+
+ssh -i .ssh/id_rsa grader@ipaddress 
+Changing the ssh port to 2200
+sudo nano /etc/ssh/sshd_config
+Change port 22 to port 2200
+
+Restart the ssh server
+
+service ssh restart
+Note: Before Logging using ssh add custom TCP port 2200 under lightsaail firewall in networking tab in lightsail instance console
+
+Now Login using command like this
+
+ssh -i .ssh/id_rsa -p 2200 grader@ipaddress
+Disabling ssh login as root
+sudo nano /etc/ssh/sshd_config
+
+make change PermitRootLogin no
+
+Configurating Ufw firewall
+sudo ufw allow 2200/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 123/udp
+sudo ufw enable
+This will allow all required ports and enables the ufw
+
+After that
+
+sudo ufw status
+It will display all allowed ports
+
+Changing time Zone
+sudo dpkg-reconfigure tzdata
+
+select none from list and then select utc.
+
+Installing Apache2
+In terminal
+
+sudo apt-get install apache2
+
+Now mod_wsgi
+
+sudo apt-get install python-setuptools libapache2-mod-wsgi
+
+Enable mod_wsgi
+
+sudo a2enmod wsgi
+
+Setting up your flask application to work with apache2
+Creating a flask app
+
+In /var/www directory create a new folder sudo mkdir FlaskApp
+
+Install git
+
+sudo apt-get install git
+
+move to the FlaskApp cd FlaskApp
+
+In that direcory clone your github repository
+
+sudo git clone https://github.com/username/catalog.git
+
+Rename your repository to FlaskApp
+
+Then rename your project file to __init__.py
+
+Error : While accesssing the client_secrets.json file
+
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+json_url = os.path.join(PROJECT_ROOT, 'client_secrets.json')
+CLIENT_ID = json.load(open(json_url))['web']['client_id']
+Use json_url instead client_secrets.json in script
+
+Reffered from stack overflow
+
+Install and configuring postgresql for project
+Install Postgres sudo apt-get install postgresql
+
+login to postgres sudo su - postgres
+
+postgres shell psql
+
+create user CREATE USER catalog WITH PASSWORD 'password';
+
+permit user to createdb ALTER USER catalog CREATEDB;
+
+Create a db name catalog with user catalog CREATE DATABASE catalog WITH OWNER catalog;
+
+connect to db \c catalog
+
+revoke all permission to public REVOKE ALL ON SCHEMA public FROM public;
+
+Give schema permission to user catalog GRANT ALL ON SCHEMA public TO catalog;
+
+exit from db and postgres \q and exit
+
+Change the database connection in both db_setup.py and __init__.py as engine = create_engine('postgresql://catalog:password@localhost/catalog')
+
+Now you are ready with your applicatiom
+
+Configure and Enable a New Virtual Host
+sudo nano /etc/apache2/sites-available/FlaskApp.conf
+
+In this add the following code
+
+<VirtualHost *:80>
+ 	ServerName mywebsite.com
+ 	ServerAdmin admin@mywebsite.com
+ 	WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
+ 	<Directory /var/www/FlaskApp/FlaskApp/>
+ 		Order allow,deny
+ 		Allow from all
+ 	</Directory>
+ 	Alias /static /var/www/FlaskApp/FlaskApp/static
+ 	<Directory /var/www/FlaskApp/FlaskApp/static/>
+ 		Order allow,deny
+ 		Allow from all
+ 	</Directory>
+ 	ErrorLog ${APACHE_LOG_DIR}/error.log
+ 	LogLevel warn
+ 	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+Enable the virtual host sudo a2ensite FlaskApp
+
+Disabling the default apache2 page sudo a2dissite 000-default.conf
+
+Create the .wsgi File
+```
+cd /var/www/FlaskApp
+sudo nano flaskapp.wsgi 
+```
+Add the following code
+
+#!/usr/bin/python
+ import sys
+ import logging
+ logging.basicConfig(stream=sys.stderr)
+ sys.path.insert(0,"/var/www/FlaskApp/")
+
+ from FlaskApp import app as application
+ application.secret_key = 'Add your secret key'
+save and exit
+
+Deploying flask app with apache2 is referred from Digital ocean
 
 Installing require modules
 You can either install all modules on your machine or create a virtual environment for the project and install the modules pip install flask sqlalchemy psycopg2 requests oauth2client
