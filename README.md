@@ -1,16 +1,19 @@
 Udacity-Linux-Server-Configuration
+
 About
+
 This is the Udacity project 5 about the Configuring the Linux the server.
 
 Server Details
-Server IP Address 13.127.109.109
+Server IP Address 13.126.182.198
 
-Hosted site Url http://13.127.109.109.xip.io/
+Hosted site Url http://13.126.182.198.xip.io
 
 How to connect as grader:
+
 save private key provided in your local machine and run the following command
 
-ssh -i path/to/privatekey -p 2200 grader@13.127.109.109
+ssh -i path/to/privatekey -p 2200 grader@13.126.182.198
   
 Configuring Linux Server
 Updating all packages
