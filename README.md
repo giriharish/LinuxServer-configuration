@@ -112,7 +112,7 @@ move to the FlaskApp cd FlaskApp
 
 In that direcory clone your github repository
 
-sudo git clone https://github.com/username/catalog.git
+sudo git clone https://github.com/username/itemcatalog.git
 
 Rename your repository to FlaskApp
 
@@ -174,6 +174,7 @@ In this add the following code
  	LogLevel warn
  	CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+
 Enable the virtual host sudo a2ensite FlaskApp
 
 Disabling the default apache2 page sudo a2dissite 000-default.conf
@@ -198,6 +199,7 @@ save and exit
 Deploying flask app with apache2 is referred from Digital ocean
 
 Installing require modules
+
 You can either install all modules on your machine or create a virtual environment for the project and install the modules pip install flask sqlalchemy psycopg2 requests oauth2client
 
 Setting up your Google Oauth2
@@ -216,6 +218,7 @@ http://ip.xip.io\callback
 xip.io is a free DNS which will be the same as using IP address
 
 Final Step
+
 Restart your apache2 server
 
 sudo service apache2 restart
