@@ -155,7 +155,7 @@ json_url = os.path.join(PROJECT_ROOT, 'client_secrets.json')
 CLIENT_ID = json.load(open(json_url))['web']['client_id']
 Use json_url instead client_secrets.json in script
 
-Reffered from stack overflow
+Reffered from [stack overflow](https://stackoverflow.com/questions/44742566/wsgi-cant-find-file-in-same-directory-in-app)
 
 Install and configuring postgresql for project
 Install Postgres sudo apt-get install postgresql
@@ -226,14 +226,14 @@ Add the following code
  application.secret_key = 'Add your secret key'
 save and exit
 
-Deploying flask app with apache2 is referred from Digital ocean
+Deploying flask app with apache2 is referred from [Digital ocean](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 
 Installing require modules
 
 You can either install all modules on your machine or create a virtual environment for the project and install the modules pip install flask sqlalchemy psycopg2 requests oauth2client
 
 Setting up your Google Oauth2
-Login to your developer console and select your project and edit OAuth details as following
+Login to your [developer console](https://console.developers.google.com/apis/dashboard?project=my-catalog-207710&duration=P30D) and select your project and edit OAuth details as following
 
 Javascript origin http://ip.xip.io
 
@@ -245,7 +245,7 @@ http://ip.xip.io\gconnect
 
 http://ip.xip.io\callback
 
-xip.io is a free DNS which will be the same as using IP address
+[xip.io](https://github.com/giriharish/Udacity-Linux-Server-Configuration/blob/master/xip.io) is a free DNS which will be the same as using IP address
 
 Final Step
 
