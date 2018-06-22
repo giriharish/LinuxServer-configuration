@@ -14,6 +14,36 @@ How to connect as grader:
 save private key provided in your local machine and run the following command
 
 ssh -i path/to/privatekey -p 2200 grader@13.126.182.198
+
+private key:
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA1seajVd7jNaRs5TgLuQqbaSiSm+dwd96fUK/CHvOJcZXAUAj
+QLn2ZQZ5SxgapdK6hxoOb4jdA+eeYBthDiNALHzR2IwwCg6AqnHyZIB1KO2bnO3A
+G0PS6n98hEqMtvWljjfQL0ov8qigMOhFJ6GM4313LRtOcrdW8QsK6RcFcAkblSeU
+s/116vtec8nwb/3T6/HX2SHx9nRCKWHQ0ZswDPAtMfN0FeRcVlFxnzIwCfsOdmXO
+B+y41OQnDslaQdsYqxgERx7wjEFZy7bha4EC49NduEaIE5a2c4Y7YNRHhAd9GHAR
+Z8LVOxI3kAKcR00h1b2CGMy5CRzInAedNKEWyQIDAQABAoIBADNz1d6OWpa+wGDZ
+BWu2VUO28PoMCyrqsplXaBRMNHJwNV+jUc6rvg8todkPiTK4bN74qwSlMO1Ci3pS
+lMmiQDloHY1W6BtApiou6faRn3+SjHjnq+HcOabbq6S1h0g9SM/tJv5tM1dadiXB
+Pu/jj7Df2bEAnaZ1rWpJTu/QCAlydMPOR1lb1zlqQQojKdPpj2Q7EE1c2lmqAKJz
+QcjjFAmR6xo9Vm+VfxecMZWMskV0B/PArhl+sx0EIusPKxslCb09e2JUC7gb3Q6/
+1isfa6z9YIswsliOeLdsAYTeBiKDyteLMDvHiBCr0vwtSg/A5dtmWyanW9NaqvNZ
+cUgbiEECgYEA609aXmVkw0qnggVKLQZ9HyrM/ufjPfvpapn/phZMF5HWf7g6rw3w
+w/aLyeXyd77uCUWU8QnnOLHKTnaCrQKvv3QvNUSFsntDJ9JV4D7cV1TLopya4tsh
+URy+/2Vu6jV1wJR6VOHvi0eOYkswCnqMBjNk1Xg1Q2EPJU+VeDa4XZUCgYEA6aoh
+TFu4MOCdAExA9Ed3Y/qyHJJTpO+1p/Ch83xKH6USbUslOXBf4wlMUjAc9YCgZrPW
+o0y7hx7fqxUUKK0RT2TWzANTSkKzGscDIkJm28Bztw4VeicpQotWDqNJh9LPWZVG
+roRDikH63ttJkJvapimuNIkSCcx45FuznjdKv2UCgYEAv33bR9hxsK/PM3NEkvGl
+3zhAjOx+tFGN+Y+LSUj58XBgQ53UO+M3XPIFfm9f62z4X5k9hQ6PGUcuIL42x77Y
+8RAG3u19c+r1krGL6yqcu4EpGpMhRJ4ZNd4T3NlZ8sVAp1DtYKhg/VJlH76aQNzL
+mLw4QbRKfCO/ZJioRaUaUiUCgYEAvaHP4ktxgWFYqXw5Hsa9Mwuq7xsl/O55i7Dz
+jkppUaNDACYDMMltWDEcmnrnlaptAsyiveaxLmi09wBlWtmR+dAJropoVxUoi+vF
+NFGVbnSStJYeggM0LggssDZ+n1dL5hUKxukacyM2+RQYcN67pSygb4xqcj9aQWHW
+tOmEpS0CgYAc+rn+H6QJpe5+mDhuys4z9wTYN0ZgaVi14hHOkadMdGhv0ugYOr5s
+JLMDoUIQfaZIXklAO/E1DKQwpj4hYiOrd35ln/uezNnRd85Ah4vJtiAga5W5NsoN
+ysSuyCYz93fQBn54SJb7tODN3tRTkjGppm0o0XXbAxhatSrvU3g7Tw==
+-----END RSA PRIVATE KEY-----
+
   
 Configuring Linux Server
 Updating all packages
